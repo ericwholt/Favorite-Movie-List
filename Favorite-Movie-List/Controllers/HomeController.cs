@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Favorite_Movie_List.Controllers
 {
@@ -16,6 +17,18 @@ namespace Favorite_Movie_List.Controllers
             List<Movie> movies =MovieAPIDAL.SearchMovie(Title);
             return View(movies);
         }
+
+        public ActionResult AddFavorite(string movie)
+        {
+            FavoriteMovy movy = new FavoriteMovy();
+            movy.ImdbId = movie;
+            
+            movy.UserId = User.Identity.GetUserId();
+            db.FavoriteMovies.Add(movy);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Index()
         {
             return View();

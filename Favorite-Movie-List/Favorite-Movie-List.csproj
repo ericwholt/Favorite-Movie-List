@@ -216,7 +216,6 @@
       <DependentUpon>FavoriteMovieDB.edmx</DependentUpon>
       <LastGenOutput>FavoriteMovieDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FavoriteMovieDB.edmx.sql" />
     <Content Include="Models\FavoriteMovieDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FavoriteMovieDB.edmx</DependentUpon>
@@ -224,6 +223,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Web.Secrets.config" />
     <EntityDeploy Include="Models\FavoriteMovieDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FavoriteMovieDB.Designer.cs</LastGenOutput>
@@ -231,7 +231,6 @@
     <Content Include="Models\FavoriteMovieDB.edmx.diagram">
       <DependentUpon>FavoriteMovieDB.edmx</DependentUpon>
     </Content>
-    <Content Include="Web.Secrets.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
