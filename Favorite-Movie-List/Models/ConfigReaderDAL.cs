@@ -7,17 +7,18 @@ namespace Favorite_Movie_List.Models
 {
     public class ConfigReaderDAL
     {
-        static string ReadSetting(string key)
-        {
-            try
-            {
-                var appSettings = ConfigurationManager.AppSettings;
-                return appSettings[key] ?? "Not Found";
-            }
-            catch (ConfigurationErrorsException)
-            {
-                return "Unable to access file";
-            }
-        }
+        //    static string ReadSetting(string key)
+        //    {
+        //        try
+        //        {
+        //            var appSettings = ConfigurationManager.AppSettings;
+        //            return appSettings[key] ?? "Not Found";
+        //        }
+        //        catch (ConfigurationErrorsException)
+        //        {
+        //            return "Unable to access file";
+        //        }
+        //    }
+        //}
     }
 }
