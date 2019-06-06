@@ -8,6 +8,7 @@ namespace Favorite_Movie_List.Models
 {
     public class ConfigReaderDAL
     {
+
         public static string ReadSetting(string key)
         {
             try

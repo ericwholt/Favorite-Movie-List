@@ -11,9 +11,10 @@ namespace Favorite_Movie_List.Controllers
     {
         FavoriteMovieDBEntities db = new FavoriteMovieDBEntities();
 
-        public ActionResult MovieResult()
+        public ActionResult MovieResult( string Title )
         {
-            return View();
+            List<Movie> movies =MovieAPIDAL.SearchMovie(Title);
+            return View(movies);
         }
         public ActionResult Index()
         {
