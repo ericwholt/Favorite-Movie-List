@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -7,16 +8,16 @@ namespace Favorite_Movie_List.Models
 {
     public class ConfigReaderDAL
     {
-        static string ReadSetting(string key)
+        public static string ReadSetting(string key)
         {
             try
             {
                 var appSettings = ConfigurationManager.AppSettings;
-                return appSettings[key] ?? "Not Found";
+                return appSettings[key] ?? null;
             }
             catch (ConfigurationErrorsException)
             {
-                return "Unable to access file";
+                return null;
             }
         }
     }

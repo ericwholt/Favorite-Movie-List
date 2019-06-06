@@ -25,7 +25,7 @@ namespace Favorite_Movie_List.Models
 
         public static List<Movie> SearchMovie(string title)
         {
-            string APIKey = "1c3b844b";
+            string APIKey = ConfigReaderDAL.ReadSetting("APIKey");
 
             string URL = $"http://www.omdbapi.com/?s={title}&apikey={APIKey}";
 

@@ -176,9 +176,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-
     <Compile Include="Models\ConfigReaderDAL.cs" />
-
     <Compile Include="Models\FavoriteMovieDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,7 +195,6 @@
     <Compile Include="Models\FavoriteMovy.cs">
       <DependentUpon>FavoriteMovieDB.tt</DependentUpon>
     </Compile>
-
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -219,6 +216,7 @@
       <DependentUpon>FavoriteMovieDB.edmx</DependentUpon>
       <LastGenOutput>FavoriteMovieDB.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\FavoriteMovieDB.edmx.sql" />
     <Content Include="Models\FavoriteMovieDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FavoriteMovieDB.edmx</DependentUpon>
@@ -233,6 +231,7 @@
     <Content Include="Models\FavoriteMovieDB.edmx.diagram">
       <DependentUpon>FavoriteMovieDB.edmx</DependentUpon>
     </Content>
+    <Content Include="App.config" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
