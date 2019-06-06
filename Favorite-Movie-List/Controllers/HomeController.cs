@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Favorite_Movie_List.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,12 @@ namespace Favorite_Movie_List.Controllers
 {
     public class HomeController : Controller
     {
+        FavoriteMovieDBEntities db = new FavoriteMovieDBEntities();
+
+        public ActionResult MovieResult()
+        {
+            return View();
+        }
         public ActionResult Index()
         {
             return View();
