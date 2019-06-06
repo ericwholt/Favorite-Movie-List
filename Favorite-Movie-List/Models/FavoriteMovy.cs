@@ -16,5 +16,6 @@ namespace Favorite_Movie_List.Models
     {
         public int Id { get; set; }
         public string UserId { get; set; }
+        public string ImdbId { get; set; }
     }
 }
