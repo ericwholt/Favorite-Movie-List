@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Favorite_Movie_List.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
