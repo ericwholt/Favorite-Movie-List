@@ -19,14 +19,15 @@ namespace Favorite_Movie_List.Controllers
         }
 
         public ActionResult AddFavorite(string movie)
-        {
+        {            
             FavoriteMovy movy = new FavoriteMovy();
             movy.ImdbId = movie;
             
             movy.UserId = User.Identity.GetUserId();
-            if(movy.UserId != null)
+            if(movy.UserId == null)
             {
-                return RedirectToAction("Login");
+                
+                return RedirectToAction(nameof(AccountController.Login),"Account");
             }
 
             db.FavoriteMovies.Add(movy);
