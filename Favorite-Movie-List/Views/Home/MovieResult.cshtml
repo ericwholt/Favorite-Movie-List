@@ -7,7 +7,7 @@
 
 <h2>MovieResult</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -55,4 +55,45 @@
     </tr>
 }
 
+</table>*@
+
+<table class="table table-striped table-hover">
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                <b>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </b>
+            </td>
+        }
+    </tr>
+    <tr>
+        @foreach (var item in Model)
+        {
+            <td>
+                <img src="@item.Poster" alt="@item.Title" width="200" height="265" />
+            </td>
+        }
+    </tr>
+    <tr>
+
+        @foreach (var item in Model)
+        {
+            <td>
+                <b>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </b>
+            </td>
+        }
+    </tr>
+    <tr>
+
+        @foreach (var item in Model)
+        {
+            <td>
+                @Html.ActionLink("Add To Favorite", "AddFavorite", new { movie = item.ImdbId })
+            </td>
+        }
+    </tr>
 </table>

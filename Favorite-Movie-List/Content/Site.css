@@ -22,3 +22,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*Nate's stuff added*/
+.btn {
+    <button type="button" class="btn btn-success" > Success</button >
+}
+
+td.wrappable,
+table.data_table td.wrappable {
+    white-space: normal;
+}                
