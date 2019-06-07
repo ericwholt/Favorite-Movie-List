@@ -34,12 +34,11 @@ namespace Favorite_Movie_List.Controllers
 
             db.FavoriteMovies.Add(movy);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("FavoriteList");
         }
-        public ActionResult RemoveFavorite( string movie)
+        public ActionResult RemoveFavorite(int id)
         {
-            FavoriteMovy movy = new FavoriteMovy();
-            movy.ImdbId = movie;
+            FavoriteMovy movy = db.FavoriteMovies.Find(id);
             //movy.UserId = User.Identity.GetUserId();
           
             db.FavoriteMovies.Remove(movy);

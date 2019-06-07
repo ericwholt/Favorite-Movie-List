@@ -44,7 +44,27 @@ namespace Favorite_Movie_List.Models
             return movies;
         }
 
+        public static List<Movie> GetMovieById(string id)
+        {
+            string APIKey = ConfigReaderDAL.ReadSetting("APIKey");
 
-        
+            string URL = $"http://www.omdbapi.com/?i={id}&apikey={APIKey}";
+
+            string MovieText = APICall(URL);
+
+            JToken movieJson = JToken.Parse(MovieText);
+
+            List<JToken> moviesToken = movieJson["Search"].ToList();
+            List<Movie> movies = new List<Movie>();
+
+            foreach (JToken movie in moviesToken)
+            {
+                Movie m = new Movie(movie);
+                movies.Add(m);
+            }
+            return movies;
+        }
+
+
     }
 }
