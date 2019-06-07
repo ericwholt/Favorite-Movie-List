@@ -24,9 +24,9 @@ namespace Favorite_Movie_List.Controllers
             movy.ImdbId = movie;
             
             movy.UserId = User.Identity.GetUserId();
-            if(movy.UserId != null)
+            if(movy.UserId == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("FavoriteList");
             }
 
             db.FavoriteMovies.Add(movy);
@@ -43,6 +43,13 @@ namespace Favorite_Movie_List.Controllers
             db.SaveChanges();
             return RedirectToAction("FavoriteList");
 
+        }
+
+        public ActionResult FavoriteList()
+        {
+            var movies = new FavoriteMovieDBEntities();
+
+            return View(movies.FavoriteMovies.ToList());
         }
 
         public ActionResult Index()
