@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 
 namespace Favorite_Movie_List.Models
 {
@@ -25,6 +23,7 @@ namespace Favorite_Movie_List.Models
 
         public static List<Movie> SearchMovie(string title)
         {
+            List<Movie> movies = new List<Movie>();
             string APIKey = ConfigReaderDAL.ReadSetting("APIKey");
 
             string URL = $"http://www.omdbapi.com/?s={title}&apikey={APIKey}";
@@ -32,15 +31,17 @@ namespace Favorite_Movie_List.Models
             string MovieText = APICall(URL);
 
             JToken movieJson = JToken.Parse(MovieText);
-
-            List<JToken> moviesToken = movieJson["Search"].ToList();
-            List<Movie> movies = new List<Movie>();
-
-            foreach (JToken movie in moviesToken)
+            if (movieJson["Response"].ToString() != "False")
             {
-                Movie m = new Movie(movie);
-                movies.Add(m);
+                List<JToken> moviesToken = movieJson["Search"].ToList();
+
+                foreach (JToken movie in moviesToken)
+                {
+                    Movie m = new Movie(movie);
+                    movies.Add(m);
+                }
             }
+
             return movies;
         }
 

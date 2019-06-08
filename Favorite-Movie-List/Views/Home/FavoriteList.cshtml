@@ -4,42 +4,183 @@
 @{
     ViewBag.Title = "FavoriteList";
 }
+<style>
+    .col-md-5, .description {
+        padding: 0;
+    }
 
+    .description {
+        font-family: 'Fredericka the Great', cursive;
+        text-align: center;
+    }
+
+    .card-header, .metadata {
+        background: none;
+        padding: 0;
+        position: relative;
+        border-style: none;
+    }
+
+    .metadata {
+        font-size: 16px;
+        i, p
+
+    {
+        float: left;
+    }
+
+    p {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+    i {
+        color: #ff9d00;
+        margin-top: 5px;
+        margin-left: 1px;
+    }
+
+    }
+
+    .card-img {
+        -webkit-clip-path: inset(10% 0 20% 0);
+        clip-path: inset(10% 0 20% 0);
+        margin-top: -15%;
+    }
+
+    .card-body {
+        position: relative;
+        margin-top: -30%;
+        color: #9FA7A9;
+        .card-title
+
+    {
+        font-weight: 600;
+        color: #414345;
+    }
+
+    .card-text {
+        margin-top: 8px;
+        font-weight: 600;
+        line-height: 30px;
+    }
+
+    }
+
+    .card, .trailer-preview {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        &:hover
+
+    {
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10), 0 8px 8px rgba(0, 0, 0, 0.18);
+    }
+
+    }
+
+    .card {
+        border-radius: 8pt;
+        border-style: none;
+        overflow: hidden;
+        transform: scale(0.8);
+        margin-top: -60px;
+    }
+
+    .trailer-preview {
+        background-color: #ff3d49;
+        position: absolute;
+        top: -46px;
+        right: 24px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        color: white;
+        font-size: 36px;
+        text-align: center;
+        padding-top: 13px;
+        &:hover, &:disabled, &:active, &:focus
+
+    {
+        background-color: #ff3d49;
+        color: white;
+    }
+
+    i {
+        margin-left: 5px;
+    }
+    }
+</style>
 <h2>Favorites</h2>
+<div class="container-fluid">
+    <div class="row flex-column-reverse flex-md-row mt-lg-5">
+        @if (Model.ListOfMovie.Count > 0)
+        {
+            for (int i = 0; i < Model.FavoriteMovies.Count; i++)
+            {
+                FavoriteMovy favMovie = (FavoriteMovy)Model.FavoriteMovies[i];
+                Movie mov = (Movie)Model.ListOfMovie[i];
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <img class="card-img movie-poster" src="@mov.Poster" alt="Card image" width="50%">
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">@mov.Title</h4>
+                            <div class="container">
+                                <div class="row">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Movie Name
-        </th>
-        <th>
-            Movie Poster
-        </th>
-        <th></th>
-    </tr>
-    @for (int i = 0; i < Model.FavoriteMovies.Count; i++)
-    {
-        FavoriteMovy favMovie = (FavoriteMovy)Model.FavoriteMovies[i];
-        Movie movie = (Movie)Model.ListOfMovie[i];
-        <tr>
-            <td>
-                @movie.Title
-            </td>
-            <td>
-                <img src="@movie.Poster" alt="@movie.Title" />
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = favMovie.Id }) |
-                @Html.ActionLink("Remove Favorite", "RemoveFavorite", new { id = favMovie.Id })
-            </td>
-        </tr>
-    }
-    @foreach (FavoriteMovy movie in Model.FavoriteMovies)
-    {
+                                    <div class="col-12 metadata text-center mb-2">
+                                        @Html.ActionLink("Details", "Details", new { id = favMovie.Id }, new { @class = "btn btn-primary w-100" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 metadata text-center">
+                                        @Html.ActionLink("Remove Favorite", "RemoveFavorite", new { id = favMovie.Id }, new { @class = "btn btn-primary w-100" })
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="card-text"></p>
+                            @*<a class="trailer-preview" href="https://youtu.be/ePbKGoIGAXY" target="new">
+                                    <i class="fa fa-play" aria-hidden="true"></i>
+                                </a>*@
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<table class="table">
+                    <tr>
+                        <th>
+                            Movie Name
+                        </th>
+                        <th>
+                            Movie Poster
+                        </th>
+                        <th></th>
+                    </tr>
+                    @for (int i = 0; i < Model.FavoriteMovies.Count; i++)
+                    {
+                        FavoriteMovy favMovie = (FavoriteMovy)Model.FavoriteMovies[i];
+                        Movie movie = (Movie)Model.ListOfMovie[i];
+                        <tr>
+                            <td>
+                                @movie.Title
+                            </td>
+                            <td>
+                                <img src="@movie.Poster" alt="@movie.Title" />
+                            </td>
+                            <td>
+                                @Html.ActionLink("Details", "Details", new { id = favMovie.Id }) |
+                                @Html.ActionLink("Remove Favorite", "RemoveFavorite", new { id = favMovie.Id })
+                            </td>
+                        </tr>
+                    }
 
-    }
-
-</table>
+                </table>*@
+        }
+        else
+        {
+            <div class="container text-center">
+                <h4 class="text-info">No Results Found</h4>
+            </div>
+        }
+    </div>
+</div>
