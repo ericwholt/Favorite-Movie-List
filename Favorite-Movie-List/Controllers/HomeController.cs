@@ -70,7 +70,12 @@ namespace Favorite_Movie_List.Controllers
             //movies.FavoriteMovies.ToList()
             return View(favoriteMovieVM);
         }
+        public ActionResult Details( string ImbdId)
+        {                                           
+            Movie IMBD = MovieAPIDAL.GetMovieById(ImbdId);
+            return View(IMBD); 
 
+        }
         public ActionResult Index()
         {
             return View();

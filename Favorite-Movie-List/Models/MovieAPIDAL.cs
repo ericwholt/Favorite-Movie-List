@@ -56,7 +56,7 @@ namespace Favorite_Movie_List.Models
             JToken movieJson = JToken.Parse(MovieText);
 
             Movie movie = new Movie(movieJson);
-
+            
             return movie;
         }
 
