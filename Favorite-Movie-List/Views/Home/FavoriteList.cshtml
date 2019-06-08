@@ -110,8 +110,8 @@
     }
 </style>
 <h2>Favorites</h2>
-<div class="container-fluid">
-    <div class="row flex-column-reverse flex-md-row mt-lg-5">
+<div class="container">
+    <div class="row flex-column flex-md-row mt-5">
         @if (Model.ListOfMovie.Count > 0)
         {
             for (int i = 0; i < Model.FavoriteMovies.Count; i++)
@@ -121,7 +121,7 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-header">
-                            <img class="card-img movie-poster" src="@mov.Poster" alt="Card image" width="50%">
+                            <img class="card-img movie-poster" src="@mov.Poster" alt="Card image" >
                         </div>
                         <div class="card-body">
                             <h4 class="card-title">@mov.Title</h4>
