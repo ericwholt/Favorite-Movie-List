@@ -14,25 +14,32 @@ namespace Favorite_Movie_List.Controllers
         public ActionResult MovieResult(string Title)
         {
             List<Movie> movies = MovieAPIDAL.SearchMovie(Title);
+            if (movies != null)
+            {
             return View(movies);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult AddFavorite(string movie)
         {
             FavoriteMovy movy = new FavoriteMovy();
-            movy.ImdbId = movie;
-
+            movy.ImdbId = movie.Trim();
             movy.UserId = User.Identity.GetUserId();
             if (movy.UserId == null)
             {
-
                 return RedirectToAction(nameof(AccountController.Login), "Account");
-
-
             }
+            List<FavoriteMovy> list = (List<FavoriteMovy>)db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList();
+            if (list.Count == 0)
+            {
 
             db.FavoriteMovies.Add(movy);
             db.SaveChanges();
+            }
             return RedirectToAction("FavoriteList");
         }
         public ActionResult RemoveFavorite(int id)
