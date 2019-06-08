@@ -13,6 +13,7 @@ namespace Favorite_Movie_List.Models
         public string ImdbId { get; set; }
         public string Type { get; set; }
         public string Poster { get; set; }
+        public string Plot { get; set; }
 
         public Movie()
         {
@@ -26,6 +27,10 @@ namespace Favorite_Movie_List.Models
             ImdbId = json["imdbID"].ToString();
             Type = json["Type"].ToString();
             Poster = json["Poster"].ToString();
+            if (json["Plot"] != null)
+            {
+                Plot = json["Plot"].ToString();
+            }
         }
 
     }
