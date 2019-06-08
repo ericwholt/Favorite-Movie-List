@@ -9,91 +9,100 @@ namespace Favorite_Movie_List.Controllers
 {
     public class HomeController : Controller
     {
+        //Setup db context
         FavoriteMovieDBEntities db = new FavoriteMovieDBEntities();
 
         public ActionResult MovieResult(string Title)
         {
+            //Get list of movies from API to pass to view
             List<Movie> movies = MovieAPIDAL.SearchMovie(Title);
+
+            //Make sure movies list exists
             if (movies != null)
             {
-            return View(movies);
+                return View(movies);
             }
             else
             {
+                //Show movie search 
                 return RedirectToAction("Index");
             }
         }
 
         public ActionResult AddFavorite(string movie)
         {
+            //Create favorite database object based on model
             FavoriteMovy movy = new FavoriteMovy();
             movy.ImdbId = movie.Trim();
             movy.UserId = User.Identity.GetUserId();
+
+            //Make sure user is logged in.
             if (movy.UserId == null)
             {
                 return RedirectToAction(nameof(AccountController.Login), "Account");
             }
-            List<FavoriteMovy> list = (List<FavoriteMovy>)db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList();
+
+            //Find movie in favorites database
+            List<FavoriteMovy> list = db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList(); 
+
+            //Check count if it is zero than the movie isn't in the favorites database.
             if (list.Count == 0)
             {
-
-            db.FavoriteMovies.Add(movy);
-            db.SaveChanges();
+                db.FavoriteMovies.Add(movy);
+                db.SaveChanges();
             }
+
+            //Show favorites list
             return RedirectToAction("FavoriteList");
         }
         public ActionResult RemoveFavorite(int id)
         {
+            //Find movie in the favorites database and store in Favorite Movy object
             FavoriteMovy movy = db.FavoriteMovies.Find(id);
-            //movy.UserId = User.Identity.GetUserId();
 
+            //Remove the movie from the favorites database
             db.FavoriteMovies.Remove(movy);
             db.SaveChanges();
+
+            //Show favorites list
             return RedirectToAction("FavoriteList");
 
         }
 
         public ActionResult FavoriteList()
         {
-
-            //FavoriteMovieVM favoriteMovieVM = new FavoriteMovieVM();
+            //Create list to store favorites db entires
             List<FavoriteMovy> favoriteEntry = new List<FavoriteMovy>();
+
+            //Create list to store movie information from ombdID api 
             List<Movie> ListOfMovie = new List<Movie>();
+
+            // populate List from database
             favoriteEntry = db.FavoriteMovies.ToList();
 
+            //populate movie list from API bases on favorite entries in database
             foreach (FavoriteMovy movie in favoriteEntry)
             {
                 ListOfMovie.Add(MovieAPIDAL.GetMovieById(movie.ImdbId));
             }
 
-            var favoriteMovieVM = new FavoriteMovieVM
+            //Create Favorite View Model
+            FavoriteMovieVM favoriteMovieVM = new FavoriteMovieVM
             {
                 ListOfMovie = ListOfMovie,
                 FavoriteMovies = db.FavoriteMovies.ToList()
             };
-            favoriteMovieVM.ListOfMovie = ListOfMovie;
-            favoriteMovieVM.FavoriteMovies = db.FavoriteMovies.ToList();
+            //favoriteMovieVM.ListOfMovie = ListOfMovie;
+            //favoriteMovieVM.FavoriteMovies = db.FavoriteMovies.ToList();
             //var movies = new FavoriteMovieDBEntities();
             //movies.FavoriteMovies.ToList()
+
+            //Show Favorite List
             return View(favoriteMovieVM);
         }
 
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
