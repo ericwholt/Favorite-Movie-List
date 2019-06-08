@@ -107,95 +107,51 @@
     i {
         margin-left: 5px;
     }
-
     }
-
 </style>
 
-@*@if (Model.ToList().Count > 0)
-    {*@
 <div class="container-fluid">
     <div class="row flex-column-reverse flex-md-row mt-lg-5">
-        @foreach (var item in Model)
+        @if (Model.ToList().Count > 0)
         {
-
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header">
-                        <img class="card-img movie-poster" src="@item.Poster" alt="Card image" width="50%">
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">@item.Title</h4>
-                        <div class="container">
-                            <div class="row">
-
-                                <div class="col-12 metadata text-center">@Html.ActionLink("Add To Favorite", "AddFavorite", new { movie = item.ImdbId.Trim() }, new { @class = "btn btn-primary w-100" })</div>
-                            </div>
+            foreach (var item in Model)
+            {
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <img class="card-img movie-poster" src="@item.Poster" alt="Card image" width="50%">
                         </div>
-                        <p class="card-text"></p>
-                        @*<a class="trailer-preview" href="https://youtu.be/ePbKGoIGAXY" target="new">
-                            <i class="fa fa-play" aria-hidden="true"></i>
-                        </a>*@
+                        <div class="card-body">
+                            <h4 class="card-title">@item.Title</h4>
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-12 metadata text-center">@Html.ActionLink("Add To Favorite", "AddFavorite", new { movie = item.ImdbId.Trim() }, new { @class = "btn btn-primary w-100" })</div>
+                                </div>
+                            </div>
+                            <p class="card-text"></p>
+                            @*<a class="trailer-preview" href="https://youtu.be/ePbKGoIGAXY" target="new">
+                                    <i class="fa fa-play" aria-hidden="true"></i>
+                                </a>*@
+                        </div>
                     </div>
                 </div>
-            </div>
-            @*<div class="col-md-7 description">
-                <h1>Movie card by Andrej</h1>
-                <p>
-                    inspired by
-                    <a href="https://dribbble.com/jllerena">Juan's</a>
-                    <a href="https://dribbble.com/shots/2807662-Movie-Card-Concept">concept</a>
-                </p>
-            </div>*@
+                @*<div class="col-md-7 description">
+                        <h1>Movie card by Andrej</h1>
+                        <p>
+                            inspired by
+                            <a href="https://dribbble.com/jllerena">Juan's</a>
+                            <a href="https://dribbble.com/shots/2807662-Movie-Card-Concept">concept</a>
+                        </p>
+                    </div>*@
 
+            }
+        }
+        else
+        {
+            <div class="container text-center">
+                <h4 class="text-info">No Results Found</h4>
+            </div>
         }
     </div>
-    </div>
-@*<table class="table table-striped table-hover">
-
-        <tr>
-            @foreach (var item in Model)
-            {
-                <td>
-                    <b>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </b>
-                </td>
-            }
-        </tr>
-        <tr>
-            @foreach (var item in Model)
-            {
-                <td>
-                    <img src="@item.Poster" alt="@item.Title" width="200" height="265" />
-                </td>
-            }
-        </tr>
-        <tr>
-
-            @foreach (var item in Model)
-            {
-                <td>
-                    <b>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </b>
-                </td>
-            }
-        </tr>
-        <tr>
-
-            @foreach (var item in Model)
-            {
-                <td>
-                    @Html.ActionLink("Add To Favorite", "AddFavorite", new { movie = item.ImdbId }, new { @class = "btn btn-primary" })
-                </td>
-            }
-        </tr>
-    </table>*@
-@*}
-    else
-    {
-        <div class="container text-center text-info">
-            <h4>No Results</h4>
-        </div>
-    }*@
+</div>
