@@ -129,7 +129,9 @@
                                 <div class="row">
 
                                     <div class="col-12 metadata text-center mb-2">
-                                        @Html.ActionLink("Details", "Details", new { id = favMovie.Id }, new { @class = "btn btn-primary w-100" })
+                                        <div class="col-12 metadata text-center">
+                                        @Html.ActionLink("Details", "Details", new { imbdId = favMovie.ImdbId }, new { @class = "btn btn-primary w-100" })
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">

@@ -125,8 +125,14 @@
                             <h4 class="card-title">@item.Title</h4>
                             <div class="container">
                                 <div class="row">
-
-                                    <div class="col-12 metadata text-center">@Html.ActionLink("Add To Favorite", "AddFavorite", new { movie = item.ImdbId.Trim() }, new { @class = "btn btn-primary w-100" })</div>
+                                    <div class="col-12 metadata text-center mb-2">
+                                        @Html.ActionLink("Add To Favorite", "AddFavorite", new { movie = item.ImdbId.Trim() }, new { @class = "btn btn-primary w-100" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 metadata text-center">
+                                        @Html.ActionLink("Details", "Details", new { imdbId = item.ImdbId }, new { @class = "btn btn-primary w-100" })
+                                    </div>
                                 </div>
                             </div>
                             <p class="card-text"></p>
