@@ -12,6 +12,11 @@ namespace Favorite_Movie_List.Controllers
         //Setup db context
         FavoriteMovieDBEntities db = new FavoriteMovieDBEntities();
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public ActionResult MovieResult(string Title)
         {
             //Get list of movies from API to pass to view
@@ -27,46 +32,6 @@ namespace Favorite_Movie_List.Controllers
                 //Show movie search 
                 return RedirectToAction("Index");
             }
-        }
-
-        public ActionResult AddFavorite(string movie)
-        {
-            //Create favorite database object based on model
-            FavoriteMovy movy = new FavoriteMovy();
-            movy.ImdbId = movie.Trim();
-            movy.UserId = User.Identity.GetUserId();
-
-            //Make sure user is logged in.
-            if (movy.UserId == null)
-            {
-                return RedirectToAction(nameof(AccountController.Login), "Account");
-            }
-
-            //Find movie in favorites database
-            List<FavoriteMovy> list = db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList(); 
-
-            //Check count if it is zero than the movie isn't in the favorites database.
-            if (list.Count == 0)
-            {
-                db.FavoriteMovies.Add(movy);
-                db.SaveChanges();
-            }
-
-            //Show favorites list
-            return RedirectToAction("FavoriteList");
-        }
-        public ActionResult RemoveFavorite(int id)
-        {
-            //Find movie in the favorites database and store in Favorite Movy object
-            FavoriteMovy movy = db.FavoriteMovies.Find(id);
-
-            //Remove the movie from the favorites database
-            db.FavoriteMovies.Remove(movy);
-            db.SaveChanges();
-
-            //Show favorites list
-            return RedirectToAction("FavoriteList");
-
         }
 
         public ActionResult FavoriteList()
@@ -101,9 +66,60 @@ namespace Favorite_Movie_List.Controllers
             return View(favoriteMovieVM);
         }
 
-        public ActionResult Index()
+        public ActionResult Details(string imbdId)
         {
-            return View();
+            if (imbdId != null)
+            {
+                //Get movie details from API
+                Movie IMBD = MovieAPIDAL.GetMovieById(imbdId.Trim());
+
+                //Show Details view
+                return View(IMBD);
+            }
+            return RedirectToAction("Index");
         }
+
+        public ActionResult AddFavorite(string movie)
+        {
+            //Create favorite database object based on model
+            FavoriteMovy movy = new FavoriteMovy();
+            movy.ImdbId = movie.Trim();
+            movy.UserId = User.Identity.GetUserId();
+
+            //Make sure user is logged in.
+            if (movy.UserId == null)
+            {
+                return RedirectToAction(nameof(AccountController.Login), "Account");
+            }
+
+            //Find movie in favorites database
+            List<FavoriteMovy> list = db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList();
+
+            //Check count if it is zero than the movie isn't in the favorites database.
+            if (list.Count == 0)
+            {
+                db.FavoriteMovies.Add(movy);
+                db.SaveChanges();
+            }
+
+            //Show favorites list
+            return RedirectToAction("FavoriteList");
+        }
+
+        public ActionResult RemoveFavorite(int id)
+        {
+            //Find movie in the favorites database and store in Favorite Movy object
+            FavoriteMovy movy = db.FavoriteMovies.Find(id);
+
+            //Remove the movie from the favorites database
+            db.FavoriteMovies.Remove(movy);
+            db.SaveChanges();
+
+            //Show favorites list
+            return RedirectToAction("FavoriteList");
+
+        }
+
+
     }
 }
