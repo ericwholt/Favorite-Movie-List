@@ -37,18 +37,22 @@ namespace Favorite_Movie_List.Controllers
         public ActionResult FavoriteList()
         {
             //Create list to store favorites db entires
-            List<FavoriteMovy> favoriteEntry = new List<FavoriteMovy>();
+            List<FavoriteMovy> favorites = new List<FavoriteMovy>();
 
             //Create list to store movie information from ombdID api 
             List<Movie> ListOfMovie = new List<Movie>();
 
             // populate List from database
-            favoriteEntry = db.FavoriteMovies.ToList();
+            favorites = db.FavoriteMovies.ToList();
 
             //populate movie list from API bases on favorite entries in database
-            foreach (FavoriteMovy movie in favoriteEntry)
+            foreach (FavoriteMovy favorite in favorites)
             {
-                ListOfMovie.Add(MovieAPIDAL.GetMovieById(movie.ImdbId));
+                Movie movie = MovieAPIDAL.GetMovieById(favorite.ImdbId);
+                if (movie != null)
+                {
+                    ListOfMovie.Add(movie);
+                }
             }
 
             //Create Favorite View Model
@@ -66,12 +70,12 @@ namespace Favorite_Movie_List.Controllers
             return View(favoriteMovieVM);
         }
 
-        public ActionResult Details(string imbdId)
+        public ActionResult Details(string movieId)
         {
-            if (imbdId != null)
+            if (movieId != null)
             {
                 //Get movie details from API
-                Movie IMBD = MovieAPIDAL.GetMovieById(imbdId.Trim());
+                Movie IMBD = MovieAPIDAL.GetMovieById(movieId.Trim());
 
                 //Show Details view
                 return View(IMBD);
@@ -81,43 +85,71 @@ namespace Favorite_Movie_List.Controllers
 
         public ActionResult AddFavorite(string movie)
         {
-            //Create favorite database object based on model
-            FavoriteMovy movy = new FavoriteMovy();
-            movy.ImdbId = movie.Trim();
-            movy.UserId = User.Identity.GetUserId();
-
-            //Make sure user is logged in.
-            if (movy.UserId == null)
+            if (movie != null)
             {
-                return RedirectToAction(nameof(AccountController.Login), "Account");
+                //Create favorite database object based on model
+                FavoriteMovy movy = new FavoriteMovy();
+                movy.ImdbId = movie.Trim();
+                movy.UserId = User.Identity.GetUserId();
+
+                //Make sure user is logged in.
+                if (movy.UserId == null)
+                {
+                    return RedirectToAction(nameof(AccountController.Login), "Account");
+                }
+
+                //Find movie in favorites database
+                List<FavoriteMovy> list = db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList();
+
+                //Check count if it is zero than the movie isn't in the favorites database.
+                if (list.Count == 0)
+                {
+                    db.FavoriteMovies.Add(movy);
+                    db.SaveChanges();
+                }
+
+                //Show favorites list
+                return RedirectToAction("FavoriteList");
             }
-
-            //Find movie in favorites database
-            List<FavoriteMovy> list = db.FavoriteMovies.Where(x => x.ImdbId == movy.ImdbId).ToList();
-
-            //Check count if it is zero than the movie isn't in the favorites database.
-            if (list.Count == 0)
+            else
             {
-                db.FavoriteMovies.Add(movy);
-                db.SaveChanges();
+                return RedirectToAction("Index");
             }
-
-            //Show favorites list
-            return RedirectToAction("FavoriteList");
         }
 
-        public ActionResult RemoveFavorite(int id)
+        public ActionResult RemoveFavorite(string id)
         {
-            //Find movie in the favorites database and store in Favorite Movy object
-            FavoriteMovy movy = db.FavoriteMovies.Find(id);
+            //Make sure parameter was supplied. If parameter is an int it will error out if not parameter is provided in url.
+            if (id != null)
+            {
+                //If we can parse the string to an id
+                if (int.TryParse(id, out int movieId))
+                {
+                    //Find movie in the favorites database and store in Favorite Movy object
+                    FavoriteMovy movy = db.FavoriteMovies.Find(movieId);
 
-            //Remove the movie from the favorites database
-            db.FavoriteMovies.Remove(movy);
-            db.SaveChanges();
+                    //Check if we found a movie in the favorites database before trying to remove
+                    if (movy != null)
+                    {
+                        //Remove the movie from the favorites database
+                        db.FavoriteMovies.Remove(movy);
+                        db.SaveChanges();
+                    }
 
-            //Show favorites list
-            return RedirectToAction("FavoriteList");
-
+                    //Show favorites list
+                    return RedirectToAction("FavoriteList");
+                }
+                else
+                {
+                    //No id send back to index
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                //id is null send back to index
+                return RedirectToAction("Index");
+            }
         }
 
 
