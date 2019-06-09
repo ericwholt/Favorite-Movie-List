@@ -53,10 +53,18 @@ namespace Favorite_Movie_List.Models
             string URL = $"http://www.omdbapi.com/?i={id}&apikey={APIKey}";
 
             string MovieText = APICall(URL);
-
+            Movie movie = new Movie();
             JToken movieJson = JToken.Parse(MovieText);
 
-            Movie movie = new Movie(movieJson);
+            //Check to make sure our api call returns a movie before we make new movie
+            if (movieJson["Response"].ToString() != "False")
+            {
+                movie = new Movie(movieJson);
+            }
+            else
+            {
+                movie = null;// Set movie to null so we can not add it to favorites database.
+            }
 
             return movie;
         }
