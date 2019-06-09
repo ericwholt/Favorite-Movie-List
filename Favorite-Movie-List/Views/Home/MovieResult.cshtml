@@ -46,6 +46,8 @@
         -webkit-clip-path: inset(10% 0 20% 0);
         clip-path: inset(10% 0 20% 0);
         margin-top: -15%;
+        min-height: 300px;
+        min-width: 150px;
     }
 
     .card-body {
@@ -116,19 +118,10 @@
         {
             foreach (var item in Model)
             {
-                string poster = "";
-                if (item.Poster != "N/A")
-                {
-                    poster = item.Poster;
-                }
-                else
-                {
-                    poster = "https://via.placeholder.com/480x640.png?text=No+Poster+Found";
-                }
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-header">
-                            <img class="card-img movie-poster" src="@poster" alt="Card image">
+                            <img class="card-img movie-poster" src="@item.Poster" alt="Card image" onerror="this.onerror = null; this.src='https://via.placeholder.com/480x640.png?text=No+Poster+Found'">
                         </div>
                         <div class="card-body">
                             <h4 class="card-title">@item.Title</h4>
