@@ -14,6 +14,10 @@ namespace Favorite_Movie_List.Models
         public string Type { get; set; }
         public string Poster { get; set; }
         public string Plot { get; set; }
+        public string Actors { get; set; }  
+        public string Rated { get; set; }
+        public string Genre  { get; set; }
+
 
         public Movie()
         {
@@ -31,6 +35,9 @@ namespace Favorite_Movie_List.Models
             {
                 Plot = json["Plot"].ToString();
             }
+            Actors = json["Actors"].ToString();
+            Rated = json["Rated"].ToString();
+            Genre = json["Genre"].ToString();
         }
 
     }

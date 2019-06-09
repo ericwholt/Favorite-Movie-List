@@ -3,63 +3,67 @@
 @{
     ViewBag.Title = "Details";
 }
+<style>
+    .iconDetails {
+        margin-left: 2%;
+        float: left;
+        height: 40px;
+        width: 40px;
+    }
+    img {
+        float: left ;
+        padding: 1%;
+    }
+    .container2 {
+        width: 70%;
+        height: auto;
+        padding: 1%;
+    }
+    .container3 {
+        width: 100%;
+        height: auto;
+        padding: 27%;
+    
+    }
+</style>
+<header>
 
-<h2>Details</h2>
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div class="gridRow">
+        <div class="gridCol-l-12 gridCol-m-12 gridCol-s-12">
+            <h1 class="card-title">@Model.Title</h1>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        <div class="filmInfoContent" data-filminfo-content>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
+            <div class="filmInfoPoster noprint">
+                <img src="@Model.Poster" alt="@Model.Title" class="filmInfoPosterImage">
+                @*<button data-trailer-btn="https://www.youtube.com/watch?v=TcMBFSGVi1c" class="btn-trailer stListItemTrailer">Play trailer</button>*@
+            </div>
+            
 
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
+            <div class=" container2">
+                <div class="filmInfoDetails">
+                    <div class="filmInfoDetailsItem"><span class="filmInfoDetailsItemLabel"><b>Type:</b></span> @Model.Type</div>
+                    <div class="filmInfoDetailsItem"><span class="filmInfoDetailsItemLabel"><b>Rated:</b></span> @Model.Rated</div>
+                    <div class="filmInfoDetailsItem"><span class="filmInfoDetailsItemLabel"><b>Year:</b></span> @Model.Year</div>
+                    <div class="filmInfoDetailsItem"><span class="filmInfoDetailsItemLabel"><b>Genre:</b></span> @Model.Genre</div>
+                    <div class="filmInfoHidden" data-filminfo-hidden>
+                        <!-- genre -->
+                        <!-- distributor -->
+                        <div class="filmInfoSynopsis"><span class="filmInfoDetailsItemLabel"><b>Actors: </b></span>@Model.Actors</div>
+                        <div class="filmInfoSynopsis"><span class="filmInfoDetailsItemLabel"><b>Plot: </b></span>@Model.Plot</div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ImdbId)
-        </dt>
+                        <div class="container3">
+                            <div class="col-15 metadata text-xl-center">
+                                <a href='javascript:history.go(-1)'> Previous Page</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-        <dd>
-            @Html.DisplayFor(model => model.ImdbId)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Poster)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Poster)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Plot)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Plot)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>

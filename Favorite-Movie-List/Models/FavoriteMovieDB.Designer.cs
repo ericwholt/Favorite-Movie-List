@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\fatmo\Grand Circus\MidTerm\Favorite-Movie-List\Favorite-Movie-List\Favorite-Movie-List\Models\FavoriteMovieDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\yendi\source\repos\APIMovieProject\Favorite-Movie-List\Models\FavoriteMovieDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
