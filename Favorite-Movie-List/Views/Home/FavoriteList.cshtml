@@ -116,7 +116,7 @@
     <div class="row flex-column flex-md-row mt-5">
         @if (Model.ListOfMovie.Count > 0)
         {
-            for (int i = 0; i < Model.FavoriteMovies.Count; i++)
+            for (int i = 0; i < Model.ListOfMovie.Count; i++)
             {
                 FavoriteMovy favMovie = (FavoriteMovy)Model.FavoriteMovies[i];
                 Movie mov = (Movie)Model.ListOfMovie[i];
@@ -132,7 +132,7 @@
 
                                     <div class="col-12 metadata text-center mb-2">
                                         <div class="col-12 metadata text-center">
-                                        @Html.ActionLink("Details", "Details", new { movieId = favMovie.ImdbId }, new { @class = "btn btn-primary w-100" })
+                                            @Html.ActionLink("Details", "Details", new { movieId = favMovie.ImdbId }, new { @class = "btn btn-primary w-100" })
                                         </div>
                                     </div>
                                 </div>
@@ -150,35 +150,7 @@
                     </div>
                 </div>
             }
-            @*<table class="table">
-                    <tr>
-                        <th>
-                            Movie Name
-                        </th>
-                        <th>
-                            Movie Poster
-                        </th>
-                        <th></th>
-                    </tr>
-                    @for (int i = 0; i < Model.FavoriteMovies.Count; i++)
-                    {
-                        FavoriteMovy favMovie = (FavoriteMovy)Model.FavoriteMovies[i];
-                        Movie movie = (Movie)Model.ListOfMovie[i];
-                        <tr>
-                            <td>
-                                @movie.Title
-                            </td>
-                            <td>
-                                <img src="@movie.Poster" alt="@movie.Title" />
-                            </td>
-                            <td>
-                                @Html.ActionLink("Details", "Details", new { id = favMovie.Id }) |
-                                @Html.ActionLink("Remove Favorite", "RemoveFavorite", new { id = favMovie.Id })
-                            </td>
-                        </tr>
-                    }
 
-                </table>*@
         }
         else
         {
@@ -186,5 +158,11 @@
                 <h4 class="text-info">No Results Found</h4>
             </div>
         }
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href='javascript:history.go(-1)' class="btn btn-primary"> Previous Page</a>
+        </div>
     </div>
 </div>

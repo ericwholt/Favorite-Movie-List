@@ -42,8 +42,10 @@ namespace Favorite_Movie_List.Controllers
             //Create list to store movie information from ombdID api 
             List<Movie> ListOfMovie = new List<Movie>();
 
+            string userId = User.Identity.GetUserId();
             // populate List from database
-            favorites = db.FavoriteMovies.ToList();
+            favorites = db.FavoriteMovies.Where(x => x.UserId == userId).ToList();
+            //favorites = db.FavoriteMovies.ToList();
 
             //populate movie list from API bases on favorite entries in database
             foreach (FavoriteMovy favorite in favorites)
@@ -61,10 +63,6 @@ namespace Favorite_Movie_List.Controllers
                 ListOfMovie = ListOfMovie,
                 FavoriteMovies = db.FavoriteMovies.ToList()
             };
-            //favoriteMovieVM.ListOfMovie = ListOfMovie;
-            //favoriteMovieVM.FavoriteMovies = db.FavoriteMovies.ToList();
-            //var movies = new FavoriteMovieDBEntities();
-            //movies.FavoriteMovies.ToList()
 
             //Show Favorite List
             return View(favoriteMovieVM);
@@ -152,6 +150,38 @@ namespace Favorite_Movie_List.Controllers
             }
         }
 
+        //    public ActionResult RemoveFavorite(string movieImdb, string loggedInUserId)
+        //    {
+        //        //Make sure parameter was supplied. If parameter is an int it will error out if not parameter is provided in url.
+        //        if (movieImdb != null && loggedInUserId != null)
+        //        {
+        //            //Find movie in the favorites database and store in Favorite Movy object
+        //            List<FavoriteMovy> movyies = db.FavoriteMovies.ToList();
+        //            for (int i = 0; i < movyies.Count; i++)
+        //            {
+        //                if (movyies[i].ImdbId.Trim() == movieImdb.Trim() && movyies[i].UserId == loggedInUserId)
+        //                {
+        //                    if (movyies[i] != null)
+        //                    {
+        //                        //Remove the movie from the favorites database
+        //                        db.FavoriteMovies.Remove(movyies[i]);
+        //                        db.SaveChanges();
+        //                    }
+        //                }
+        //            }
+        //            //Check if we found a movie in the favorites database before trying to remove
+
+
+        //            //Show favorites list
+        //            return RedirectToAction("FavoriteList");
+
+        //        }
+        //        else
+        //        {
+        //            //id is null send back to index
+        //            return RedirectToAction("Index");
+        //        }
+        //    }
 
     }
 }
