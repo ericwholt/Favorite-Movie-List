@@ -35,9 +35,20 @@ namespace Favorite_Movie_List.Models
             {
                 Plot = json["Plot"].ToString();
             }
-            Actors = json["Actors"].ToString();
-            Rated = json["Rated"].ToString();
-            Genre = json["Genre"].ToString();
+            if (json["Actors"] !=null)
+            {
+                Actors = json["Actors"].ToString();
+            }
+           
+            if(json["Rated"] != null)
+            {
+                Rated = json["Rated"].ToString();
+            }
+            if (json["Genre"] != null)
+            {
+                Genre = json["Genre"].ToString();
+            }
+                        
         }
 
     }
